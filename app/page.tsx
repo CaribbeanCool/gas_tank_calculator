@@ -62,7 +62,7 @@ export default function GasTankCalculator() {
               </Label>
               <Select value={selectedCar} onValueChange={setSelectedCar}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Choose your car model" />
+                  <SelectValue placeholder="Escoge tu modelo de carro" />
                 </SelectTrigger>
                 <SelectContent>
                   {carModels.map((car) => (
