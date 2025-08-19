@@ -16,8 +16,8 @@ import { Slider } from "@/components/ui/slider";
 // Car models with tank capacities in liters
 const carModels = [
   { name: "Nissan Altima 2010 2.5L", capacity: 75.7 },
-  { name: "Mazda Tribute 2002", capacity: 62.09 },
-  { name: "Ford Ranger 2007", capacity: 64.4 },
+  { name: "Mazda Tribute 2002", capacity: 62.08 },
+  { name: "Ford Ranger 2002", capacity: 62.459 },
   { name: "Toyota Echo 2000", capacity: 45.046 },
 ];
 
@@ -138,7 +138,7 @@ export default function GasTankCalculator() {
                     min="0"
                     value={pricePerLiter}
                     onChange={(e) => setPricePerLiter(e.target.value)}
-                    placeholder="Enter price per liter"
+                    placeholder="Escriba el precio por litro"
                     className="text-lg"
                   />
                 </div>
