@@ -1,103 +1,187 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+
+// Car models with tank capacities in liters
+const carModels = [
+  { name: "Nissan Altima 2010 2.5L", capacity: 75.7 },
+  { name: "Mazda Tribute 2002", capacity: 62.09 },
+  { name: "Ford Ranger 2007", capacity: 64.4 },
+  { name: "Toyota Echo 2000", capacity: 45.046 },
+];
+
+export default function GasTankCalculator() {
+  const [selectedCar, setSelectedCar] = useState<string>("");
+  const [currentFuelLevel, setCurrentFuelLevel] = useState<number[]>([25]);
+  const [pricePerLiter, setPricePerLiter] = useState<string>("1.50");
+
+  const selectedCarData = carModels.find((car) => car.name === selectedCar);
+  const tankCapacity = selectedCarData?.capacity || 0;
+  const currentFuelPercentage = currentFuelLevel[0];
+  const currentFuelAmount = (tankCapacity * currentFuelPercentage) / 100;
+  const litersNeeded = tankCapacity - currentFuelAmount;
+  const totalCost = litersNeeded * Number.parseFloat(pricePerLiter || "0");
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <div className="max-w-2xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="text-center py-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Gas Tank Fuel Calculator
+          </h1>
+          <p className="text-gray-600">
+            Calculate how much you need to spend to fill up your tank
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Main Calculator Card */}
+        <Card className="shadow-xl border-0">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center text-gray-800">
+              Fuel Calculator
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Car Selection */}
+            <div className="space-y-2">
+              <Label htmlFor="car-select" className="text-sm font-medium">
+                Select Your Car Model
+              </Label>
+              <Select value={selectedCar} onValueChange={setSelectedCar}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Choose your car model" />
+                </SelectTrigger>
+                <SelectContent>
+                  {carModels.map((car) => (
+                    <SelectItem key={car.name} value={car.name}>
+                      {car.name} ({car.capacity}L)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {selectedCar && (
+              <>
+                <div className="space-y-4">
+                  <Label className="text-sm font-medium">
+                    Current Fuel Level: {currentFuelPercentage}%
+                  </Label>
+
+                  <div className="flex justify-center">
+                    <div className="relative w-48 h-48">
+                      {/* Background circle */}
+                      <div className="absolute inset-0 rounded-full bg-gray-200">
+                        {/* Fuel level circle */}
+                        <div
+                          className="absolute inset-0 rounded-full bg-gradient-to-t from-blue-500 to-blue-400 transition-all duration-300"
+                          style={{
+                            clipPath: `inset(${
+                              100 - currentFuelPercentage
+                            }% 0 0 0)`,
+                          }}
+                        />
+                        {/* Center circle with percentage */}
+                        <div className="absolute inset-8 rounded-full bg-white shadow-inner flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-3xl font-bold text-gray-800">
+                              {currentFuelPercentage}%
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              Fuel Level
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Fuel Level Slider */}
+                  <div className="px-2">
+                    <Slider
+                      value={currentFuelLevel}
+                      onValueChange={setCurrentFuelLevel}
+                      max={100}
+                      min={0}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>Empty</span>
+                      <span>Full</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="price-input" className="text-sm font-medium">
+                    Price per Liter ($)
+                  </Label>
+                  <Input
+                    id="price-input"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={pricePerLiter}
+                    onChange={(e) => setPricePerLiter(e.target.value)}
+                    placeholder="Enter price per liter"
+                    className="text-lg"
+                  />
+                </div>
+
+                {/* Results */}
+                {pricePerLiter && Number.parseFloat(pricePerLiter) > 0 && (
+                  <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+                    <CardContent className="pt-6">
+                      <div className="text-center space-y-2">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          Fill-up Calculation
+                        </h3>
+                        <div className="text-2xl font-bold text-green-700">
+                          You need {litersNeeded.toFixed(1)}L, costing $
+                          {totalCost.toFixed(2)} to fill your tank.
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mt-4 text-sm text-gray-600">
+                          <div className="bg-white/50 rounded-lg p-3">
+                            <div className="font-medium">Liters Needed</div>
+                            <div className="text-lg font-bold text-blue-600">
+                              {litersNeeded.toFixed(1)}L
+                            </div>
+                          </div>
+                          <div className="bg-white/50 rounded-lg p-3">
+                            <div className="font-medium">Total Cost</div>
+                            <div className="text-lg font-bold text-green-600">
+                              ${totalCost.toFixed(2)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Footer */}
+        <div className="text-center text-sm text-gray-500">
+          Built with React & TailwindCSS • Ready for Vercel deployment
+        </div>
+      </div>
     </div>
   );
 }
