@@ -39,10 +39,11 @@ export default function GasTankCalculator() {
         {/* Header */}
         <div className="text-center py-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Gas Tank Fuel Calculator
+            Calculadora de Gasolina
           </h1>
           <p className="text-gray-600">
-            Calculate how much you need to spend to fill up your tank
+            Calcula cuanta gasolina necesitas para llenar tu tanque y cuánto
+            costará
           </p>
         </div>
 
@@ -50,14 +51,14 @@ export default function GasTankCalculator() {
         <Card className="shadow-xl border-0">
           <CardHeader>
             <CardTitle className="text-2xl text-center text-gray-800">
-              Fuel Calculator
+              Calculadora de Gasolina
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Car Selection */}
             <div className="space-y-2">
               <Label htmlFor="car-select" className="text-sm font-medium">
-                Select Your Car Model
+                Selecciona tu modelo de carro
               </Label>
               <Select value={selectedCar} onValueChange={setSelectedCar}>
                 <SelectTrigger className="w-full">
@@ -77,7 +78,7 @@ export default function GasTankCalculator() {
               <>
                 <div className="space-y-4">
                   <Label className="text-sm font-medium">
-                    Current Fuel Level: {currentFuelPercentage}%
+                    Nivel de gasolina en el tanque: {currentFuelPercentage}%
                   </Label>
 
                   <div className="flex justify-center">
@@ -100,7 +101,7 @@ export default function GasTankCalculator() {
                               {currentFuelPercentage}%
                             </div>
                             <div className="text-sm text-gray-600">
-                              Fuel Level
+                              Nivel de Gasolina
                             </div>
                           </div>
                         </div>
@@ -120,7 +121,7 @@ export default function GasTankCalculator() {
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-1">
                       <span>Empty</span>
-                      <span>Full</span>
+                      <span>Lleno</span>
                     </div>
                   </div>
                 </div>
@@ -128,7 +129,7 @@ export default function GasTankCalculator() {
                 {/* Price Input */}
                 <div className="space-y-2">
                   <Label htmlFor="price-input" className="text-sm font-medium">
-                    Price per Liter ($)
+                    Precio por Litro ($)
                   </Label>
                   <Input
                     id="price-input"
@@ -148,21 +149,21 @@ export default function GasTankCalculator() {
                     <CardContent className="pt-6">
                       <div className="text-center space-y-2">
                         <h3 className="text-lg font-semibold text-gray-800">
-                          Fill-up Calculation
+                          Calculo de Gasolina
                         </h3>
                         <div className="text-2xl font-bold text-green-700">
-                          You need {litersNeeded.toFixed(1)}L, costing $
-                          {totalCost.toFixed(2)} to fill your tank.
+                          Se necesita {litersNeeded.toFixed(1)}L, con un costo
+                          de ${totalCost.toFixed(2)} para llenar el tanque.
                         </div>
                         <div className="grid grid-cols-2 gap-4 mt-4 text-sm text-gray-600">
                           <div className="bg-white/50 rounded-lg p-3">
-                            <div className="font-medium">Liters Needed</div>
+                            <div className="font-medium">Litros necesarios</div>
                             <div className="text-lg font-bold text-blue-600">
                               {litersNeeded.toFixed(1)}L
                             </div>
                           </div>
                           <div className="bg-white/50 rounded-lg p-3">
-                            <div className="font-medium">Total Cost</div>
+                            <div className="font-medium">Costo Total</div>
                             <div className="text-lg font-bold text-green-600">
                               ${totalCost.toFixed(2)}
                             </div>

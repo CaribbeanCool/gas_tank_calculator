@@ -5,9 +5,9 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gas Tank Fuel Calculator",
+  title: "Calculadora de Gasolina",
   description:
-    "Calculate how much money you need to spend to fill up your car's gas tank",
+    "Calcula cuanta gasolina necesitas para llenar tu tanque y cuánto costará.",
   generator: "v0.app",
 };
 
