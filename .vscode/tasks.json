@@ -18,7 +18,10 @@
 			"problemMatcher": [],
 			"label": "npm: dev",
 			"detail": "next dev --turbopack",
-			"group": "build"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
