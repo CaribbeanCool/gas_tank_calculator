@@ -19,6 +19,7 @@ const carModels = [
   { name: "Mazda Tribute 2002", capacity: 62.08 },
   { name: "Ford Ranger 2002", capacity: 62.459 },
   { name: "Toyota Echo 2000", capacity: 45.046 },
+  { name: "Mitsubishi Lancer 2010", capacity: 58.67 },
 ];
 
 export default function GasTankCalculator() {
