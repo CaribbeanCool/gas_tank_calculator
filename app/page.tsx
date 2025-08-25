@@ -24,7 +24,7 @@ const carModels = [
 export default function GasTankCalculator() {
   const [selectedCar, setSelectedCar] = useState<string>("");
   const [currentFuelLevel, setCurrentFuelLevel] = useState<number[]>([25]);
-  const [pricePerLiter, setPricePerLiter] = useState<string>("1.50");
+  const [pricePerLiter, setPricePerLiter] = useState<string>("0.77");
 
   const selectedCarData = carModels.find((car) => car.name === selectedCar);
   const tankCapacity = selectedCarData?.capacity || 0;
