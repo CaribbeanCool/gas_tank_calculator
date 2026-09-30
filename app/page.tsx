@@ -78,9 +78,38 @@ export default function GasTankCalculator() {
             {selectedCar && (
               <>
                 <div className="space-y-4">
-                  <Label className="text-sm font-medium">
-                    Nivel de gasolina en el tanque: {currentFuelPercentage}%
-                  </Label>
+                  <div className="flex items-end justify-between gap-4">
+                    <div>
+                      <Label htmlFor="fuel-level" className="text-sm font-medium">
+                        ¿Cuánta gasolina tienes ahora?
+                      </Label>
+                      <p className="text-sm text-gray-500">
+                        Ajusta el nivel estimado del tanque
+                      </p>
+                    </div>
+                    <div className="relative w-24 shrink-0">
+                      <Input
+                        id="fuel-level"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value={currentFuelPercentage}
+                        onChange={(event) => {
+                          const value = Math.min(
+                            100,
+                            Math.max(0, Number.parseInt(event.target.value || "0", 10)),
+                          );
+                          setCurrentFuelLevel([value]);
+                        }}
+                        aria-label="Porcentaje actual de gasolina"
+                        className="pr-7 text-right font-semibold"
+                      />
+                      <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">
+                        %
+                      </span>
+                    </div>
+                  </div>
 
                   <div className="flex justify-center">
                     <div className="relative w-48 h-48">
@@ -118,11 +147,29 @@ export default function GasTankCalculator() {
                       max={100}
                       min={0}
                       step={1}
+                      aria-label="Nivel actual de gasolina"
                       className="w-full"
                     />
-                    <div className="flex justify-between text-xs text-gray-500 mt-1">
-                      <span>Empty</span>
+                    <div className="mt-2 flex justify-between text-xs text-gray-500">
+                      <span>Vacío</span>
                       <span>Lleno</span>
+                    </div>
+                    <div className="mt-4 grid grid-cols-4 gap-2" aria-label="Niveles rápidos">
+                      {[25, 50, 75, 100].map((level) => (
+                        <button
+                          key={level}
+                          type="button"
+                          onClick={() => setCurrentFuelLevel([level])}
+                          aria-pressed={currentFuelPercentage === level}
+                          className={`rounded-lg border px-2 py-2 text-sm font-medium transition-colors ${
+                            currentFuelPercentage === level
+                              ? "border-blue-600 bg-blue-50 text-blue-700"
+                              : "border-gray-200 bg-white text-gray-600 hover:border-blue-300 hover:bg-blue-50"
+                          }`}
+                        >
+                          {level}%
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
